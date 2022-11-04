@@ -1,0 +1,22 @@
+{
+  "name": "timesheetsbot",
+  "version": "1.0.0",
+  "description": "A discord bot for sending out scheduled reminders for submitting timesheets.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "node-cron": "^3.0.2",
+    "node-fetch": "^3.2.10"
+  },
+  "devDependencies": {
+    "eslint": "^8.26.0"
+  }
+}
