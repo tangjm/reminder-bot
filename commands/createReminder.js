@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
 const MentionsEnum = require('../reminders/schemas/Mentions');
 const { Reminder } = require('../reminders/schemas/Reminder');
-const { addGuildSuffix, formatMentions } = require('../utils');
+const { addGuildSuffix, formatMentions, generateMentionsList } = require('../utils');
 const genericOperationsTable = global.genericOperationsTable;
 
 async function execute(interaction) {
@@ -12,17 +12,7 @@ async function execute(interaction) {
 	const scheduleExpression = interaction.options.getString('schedule-expression');
 	const mentions = interaction.options.getString('mentions');
 
-	const mentionsList = [];
-	switch (mentions) {
-	case MentionsEnum.EVERYONE:
-		mentionsList.push('@everyone'); 
-		break;
-	case MentionsEnum.SELF:
-		mentionsList.push(formatMentions(interaction.user.id));
-		break;
-	case MentionsEnum.NONE:
-		break;
-	}
+	const mentionsList = generateMentionsList(mentions);
 
 	const reminder = new Reminder(
 		addGuildSuffix(reminderName, guildId),
