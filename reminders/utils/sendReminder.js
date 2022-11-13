@@ -2,11 +2,14 @@ const { REST, Routes } = require('discord.js');
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
-module.exports = async function sendReminder(CHANNEL_ID, msg) {
+module.exports = async function sendReminder(channelId, msg, mentions) {
+	const msgWithMentions = mentions.length > 0
+		? msg + '\n' + mentions.join('')
+		: msg;
 	try {
-		const res = await rest.post(Routes.channelMessages(CHANNEL_ID), {
+		const res = await rest.post(Routes.channelMessages(channelId), {
 			body: {
-				content: msg,
+				content: msgWithMentions,
 			},
 		});
 		const formattedTimestamp = new Intl.DateTimeFormat('en-GB', {

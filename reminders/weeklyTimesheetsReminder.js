@@ -1,9 +1,10 @@
-const genericReminder = require('./utils/genericReminder.js');
+const MentionsEnum = require('./schemas/Mentions.js');
+const { Reminder } = require('./schemas/Reminder.js');
 const { messages } = require('./utils/messages.js');
 
-module.exports = function weeklyTimesheetsReminder(channelId) {
-	const reminderId = weeklyTimesheetsReminder.name;
-	const msg = messages.weekly_timesheets_reminder;
-	const scheduleExpression = '0 17 * * FRI';
-	genericReminder(reminderId, msg, channelId, scheduleExpression);
-};
+module.exports = new Reminder('weeklyTimesheetsReminder',
+	messages.weekly_timesheets_reminder,
+	'0 17 * * FRI',
+	true,
+	MentionsEnum.EVERYONE,
+);

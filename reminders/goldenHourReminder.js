@@ -1,9 +1,10 @@
-const genericReminder = require('./utils/genericReminder.js');
+const MentionsEnum = require('./schemas/Mentions.js');
+const { Reminder } = require('./schemas/Reminder.js');
 const { messages } = require('./utils/messages.js');
 
-module.exports = function goldenHourReminder(channelId) {
-	const reminderId = goldenHourReminder.name;
-	const msg = messages.golden_hour_reminder;
-	const scheduleExpression = '0 12 * * *';
-	genericReminder(reminderId, msg, channelId, scheduleExpression);
-};
+module.exports = new Reminder('goldenHourReminder',
+	messages.golden_hour_reminder,
+	'0 12 * * 1-5',
+	false,
+	MentionsEnum.NONE,
+);
