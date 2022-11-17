@@ -48,8 +48,13 @@ function install_generic_operations_on_reminders() {
 				if (cronJob.getTasks().get(reminder.getName()) !== undefined) {
 					return 'reminder already exists';
 				}
-				genericReminder(channelId, ...reminder);
-				return 'reminder has been scheduled";
+				genericReminder(channelId, 
+						reminder.getName(), 
+						reminder.getMsg(),
+						reminder.getScheduleExpression(),
+						reminder.isActive(),
+						reminder.getMentions());
+				return 'reminder has been scheduled';
 			}
 		})
 	genericOperationsTable.set('showall',
