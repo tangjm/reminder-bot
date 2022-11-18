@@ -3,7 +3,7 @@ const cronJob = require('node-cron');
 const fs = require('node:fs');
 const path = require('node:path');
 const genericReminder = require('./reminders/utils/genericReminder.js');
-const { addGuildSuffix, generateMentionsList } = require('./utils.js');
+const { addGuildSuffix, makeMentionsList } = require('./utils.js');
 
 function setUpDefaultReminders(guildObj) {
 	const { systemChannelId, id: guildId } = guildObj;
@@ -19,7 +19,7 @@ function setUpDefaultReminders(guildObj) {
 		const reminderFilePath = path.join(remindersPath, reminderFile);
 		const reminder = require(reminderFilePath);
 
-		const mentionsList = generateMentionsList(reminder.getMentions());
+		const mentionsList = makeMentionsList(reminder.getMentions(), []);
 
 		if (!currentTasks.has(reminder.getName())) {
 			genericReminder(systemChannelId,

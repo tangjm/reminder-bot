@@ -9,28 +9,37 @@ function addGuildSuffix(reminderName, guildSuffix) {
 }
 
 
-function formatMentions(mentions) {
-	return mentions.map(mention => `<@${mention}>`);
+function makeUserIdList(userIdArray) {
+	return userIdArray.map(mentionUser);
 }
 
-function generateMentionsList(mentions) {
+function mentionEveryone() {
+	return '@everyone';
+}
+
+function mentionUser(userId) {
+	return `<@${userId}>`; 
+}
+
+function makeMentionsList(mentions, userIdArray) {
+	console.log("makeMentionsList -mentions:", mentions);
 	const mentionsList = [];
 	switch (mentions) {
 	case MentionsEnum.EVERYONE:
-		mentionsList.push('@everyone'); 
+		mentionsList.push(mentionEveryone()); 
 		break;
 	case MentionsEnum.SELF:
-		mentionsList.push(formatMentions(interaction.user.id));
+		mentionsList.push(makeUserIdList(userIdArray));
 		break;
 	case MentionsEnum.NONE:
 		break;
 	}
+	console.log("makeMentionsList - mentionsList", mentionsList);
 	return mentionsList;
 }
 
 module.exports = {
 	removeGuildSuffix,
 	addGuildSuffix,
-	formatMentions,
-	generateMentionsList,
+	makeMentionsList,
 };

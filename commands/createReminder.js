@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
 const MentionsEnum = require('../reminders/schemas/Mentions');
 const { Reminder } = require('../reminders/schemas/Reminder');
-const { addGuildSuffix, formatMentions, generateMentionsList } = require('../utils');
+const { addGuildSuffix, makeMentionsList } = require('../utils');
 const genericOperationsTable = global.genericOperationsTable;
 
 async function execute(interaction) {
@@ -11,8 +11,9 @@ async function execute(interaction) {
 	const msg = interaction.options.getString('message');
 	const scheduleExpression = interaction.options.getString('schedule-expression');
 	const mentions = interaction.options.getString('mentions');
+	const userId = interaction.user.id;
 
-	const mentionsList = generateMentionsList(mentions);
+	const mentionsList = makeMentionsList(mentions, [userId]);
 
 	const reminder = new Reminder(
 		addGuildSuffix(reminderName, guildId),
@@ -26,9 +27,9 @@ async function execute(interaction) {
 }
 
 const mentionOptions = [
-	{ name: MentionsEnum.EVERYONE, value: 'Mention everyone in the guild.' },
-	{ name: MentionsEnum.SELF, value: 'Mention yourself.' },
-	{ name: MentionsEnum.NONE, value: 'Don\'t add any mentions' },
+	{ name: '@Everyone', value: MentionsEnum.EVERYONE },
+	{ name: '@Self', value: MentionsEnum.SELF },
+	{ name: 'None', value: MentionsEnum.NONE },
 ];
 
 module.exports = {
@@ -54,6 +55,7 @@ module.exports = {
 		.addStringOption(option =>
 			option.setName('mentions')
 				.setDescription('Specify any mentions for your reminder.')
-				.addChoices(...mentionOptions)),
+				.addChoices(...mentionOptions)
+				.setRequired(true)),
 	execute,
 };
