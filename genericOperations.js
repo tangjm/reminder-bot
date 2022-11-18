@@ -16,12 +16,12 @@ function install_generic_operations_on_reminders() {
 				if (!reminder) {
 					return reminderName + 'does not exist. Please check for spelling errors.';
 				}
-				const isActive = reminder.options.scheduled;
-				if (!isActive) {
+				const isScheduled = reminder.options.scheduled;
+				if (!isScheduled) {
 					reminder.start();
 					reminder.options.scheduled = true;
 				}
-				return 'reminder is active';
+				return 'reminder is scheduled';
 			};
 		});
 	genericOperationsTable.set('deactivate',
@@ -32,19 +32,20 @@ function install_generic_operations_on_reminders() {
 				if (!reminder) {
 					return reminderName + 'does not exist. Please check for any spelling errors.';
 				}
-				const isActive = reminder.options.scheduled;
-				if (isActive) {
+				const isScheduled = reminder.options.scheduled;
+				if (isScheduled) {
 					reminder.stop();
 					reminder.options.scheduled = false;
 				}
-				return 'reminder is no longer active';
+				return 'reminder is no longer scheduled';
 			};
 		});
 	genericOperationsTable.set('create', 
 		(guildId) => {
 			return (reminder, channelId) => {
 				// check if reminder already exists
-				if (cronJob.getTasks().get(reminder.getName()) !== undefined) {
+				const reminderExists = cronJob.getTasks().has(reminder.getName());
+				if (reminderExists) {
 					return 'reminder already exists';
 				}
 				genericReminder(channelId, 
@@ -78,7 +79,7 @@ function install_generic_operations_on_reminders() {
 					if (reminder.endsWith(guildId)) {
 						const reminderObj = {
 							[removeGuildSuffix(reminder)]: {
-								'isActive': allReminders.get(reminder).options.scheduled,
+								'isScheduled': allReminders.get(reminder).options.scheduled,
 							},
 						};
 						reminderList.push(reminderObj);
