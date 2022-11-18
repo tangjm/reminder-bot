@@ -16,6 +16,7 @@ The node-cron package is used to manage reminders using cron expression syntax t
 
 The discord.js wrapper is used to make it easier to interface with the Discord API.
 
+The design is based on a data-directed programming style.
 
 ### Usage 
 
@@ -44,6 +45,12 @@ Deploy commands to a specific guild (useful for testing purposes).
 node deploy-commands-guild-specific.js 
 ```
 
+Remove guild specific test commands
+
+```bash
+node deploy-commands-guild-specific-reset.js
+```
+
 ### Feature list 
 
 Default reminders 
@@ -59,7 +66,7 @@ Slash commands
  - [ ] Users can update timings of specific reminders.
  - [x] Users can activate/deactivate reminders.
  - [x] Users can view all reminders.
- - [ ] Users can create a reminder.
+ - [x] Users can create a reminder.
  - [ ] Users can delete a reminder.
 
 
