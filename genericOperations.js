@@ -56,7 +56,18 @@ function install_generic_operations_on_reminders() {
 						reminder.getMentions());
 				return 'reminder has been scheduled';
 			}
-		})
+		});
+	genericOperationsTable.set('delete', 
+		(guildId) => {
+			return (reminderName) => {
+				const reminderId = addGuildSuffix(reminderName, guildId);
+				const successful = cronJob.getTasks().delete(reminderId);
+				if (!successful) {
+					return reminderName + 'does not exist. Please check for any spelling errors.';
+				}
+				return 'reminder has been deleted';
+			}
+		});
 	genericOperationsTable.set('showall',
 		(guildId) => {
 			return () => {
