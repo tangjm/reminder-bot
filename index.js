@@ -54,8 +54,36 @@ for (const file of eventFiles) {
 
 client.login(process.env.DISCORD_TOKEN);
 
+// Express server
+const app = express();
+const PORT = process.env.PORT || 8080;
 
-// Connect to PostgresSQL database 
+app.get('/reminders', (req, res) => {
+	const activeTasks = cronJob.getTasks();
+
+	const responseData = {
+		'number_of_reminders': activeTasks.size,
+		'reminders': [],
+	};
+
+	activeTasks.forEach((_, name) => responseData.reminders.push({ name }));
+	res.status(200).send(responseData);
+});
+
+app.get('/', (req, res) => {
+	if (!client.isReady()) {
+		client.login(process.env.DISCORD_TOKEN)
+			.then(console.log)
+			.catch(console.error);
+	}
+	res.send('Client is ready: ' + client.isReady());
+});
+
+app.listen(PORT, () => {
+	console.log('Express server listening on port', PORT);
+});
+
+// Connect to PostgresSQL database
 
 // const connectionString = `postgres://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}/${process.env.PG_DATABASE}`;
 
