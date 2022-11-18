@@ -13,7 +13,6 @@ function install_generic_operations_on_reminders() {
 				console.log('reminderName', reminderName);
 				const reminderId = addGuildSuffix(reminderName, guildId);
 				const reminder = cronJob.getTasks().get(reminderId);
-				console.log('reminder', reminder);
 				if (!reminder) {
 					return reminderName + 'does not exist. Please check for spelling errors.';
 				}
