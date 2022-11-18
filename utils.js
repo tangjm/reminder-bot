@@ -22,7 +22,6 @@ function mentionUser(userId) {
 }
 
 function makeMentionsList(mentions, userIdArray) {
-	console.log("makeMentionsList -mentions:", mentions);
 	const mentionsList = [];
 	switch (mentions) {
 	case MentionsEnum.EVERYONE:
@@ -34,7 +33,6 @@ function makeMentionsList(mentions, userIdArray) {
 	case MentionsEnum.NONE:
 		break;
 	}
-	console.log("makeMentionsList - mentionsList", mentionsList);
 	return mentionsList;
 }
 
