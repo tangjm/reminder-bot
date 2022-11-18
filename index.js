@@ -71,12 +71,13 @@ app.get('/reminders', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-	if (!client.isReady()) {
+	const isLoggedIn = client.isReady();
+	if (!isLoggedIn) {
 		client.login(process.env.DISCORD_TOKEN)
 			.then(console.log)
 			.catch(console.error);
 	}
-	res.send('Client is ready: ' + client.isReady());
+	res.send('Client is ready: ' + isLoggedIn); 
 });
 
 app.listen(PORT, () => {
