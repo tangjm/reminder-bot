@@ -1,7 +1,7 @@
 require('dotenv').config();
 const cronJob = require('node-cron');
-const fs = require('node:fs');
-const path = require('node:path');
+const fs = require('fs');
+const path = require('path');
 const genericReminder = require('./reminders/utils/genericReminder.js');
 const { addGuildSuffix, makeMentionsList } = require('./utils.js');
 

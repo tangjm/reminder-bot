@@ -2,8 +2,8 @@ require('dotenv').config();
 const pg = require('pg');
 const express = require('express');
 const cronJob = require('node-cron');
-const fs = require('node:fs');
-const path = require('node:path');
+const fs = require('fs');
+const path = require('path');
 
 const { install_generic_operations_on_reminders } = require('./genericOperations.js');
 
