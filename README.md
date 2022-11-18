@@ -67,7 +67,7 @@ Slash commands
  - [x] Users can activate/deactivate reminders.
  - [x] Users can view all reminders.
  - [x] Users can create a reminder.
- - [ ] Users can delete a reminder.
+ - [x] Users can delete a reminder.
 
 
 
