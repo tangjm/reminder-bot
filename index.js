@@ -1,5 +1,5 @@
 require('dotenv').config();
-const pg = require('pg');
+// const pg = require('pg');
 const express = require('express');
 const cronJob = require('node-cron');
 const fs = require('fs');
